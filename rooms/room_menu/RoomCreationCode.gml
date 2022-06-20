@@ -1,0 +1,1 @@
+global.LAYER_INSTANCE_ID = layer_get_id("Instances")
