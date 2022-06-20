@@ -1,9 +1,11 @@
 {
   "resources": [
+    {"id":{"name":"laserRetro_000","path":"sounds/laserRetro_000/laserRetro_000.yy",},"order":1,},
     {"id":{"name":"obj_player_tank_shallow","path":"objects/obj_player_tank_shallow/obj_player_tank_shallow.yy",},"order":2,},
     {"id":{"name":"obj_client","path":"objects/obj_client/obj_client.yy",},"order":1,},
     {"id":{"name":"obj_player_tank","path":"objects/obj_player_tank/obj_player_tank.yy",},"order":0,},
     {"id":{"name":"obj_chatbox","path":"objects/obj_chatbox/obj_chatbox.yy",},"order":1,},
+    {"id":{"name":"laserRetro_001","path":"sounds/laserRetro_001/laserRetro_001.yy",},"order":0,},
     {"id":{"name":"room_play","path":"rooms/room_play/room_play.yy",},"order":1,},
     {"id":{"name":"spr_tank_brawler","path":"sprites/spr_tank_brawler/spr_tank_brawler.yy",},"order":0,},
     {"id":{"name":"room_host","path":"rooms/room_host/room_host.yy",},"order":2,},
@@ -11,7 +13,7 @@
     {"id":{"name":"spr_ui","path":"sprites/spr_ui/spr_ui.yy",},"order":6,},
     {"id":{"name":"spr_button","path":"sprites/spr_button/spr_button.yy",},"order":5,},
     {"id":{"name":"scr_msg","path":"scripts/scr_msg/scr_msg.yy",},"order":0,},
-    {"id":{"name":"obj_network","path":"objects/obj_network/obj_network.yy",},"order":11,},
+    {"id":{"name":"obj_network","path":"objects/obj_network/obj_network.yy",},"order":2,},
     {"id":{"name":"obj_dead","path":"objects/obj_dead/obj_dead.yy",},"order":2,},
     {"id":{"name":"spr_weapon_brawler_strip2","path":"sprites/spr_weapon_brawler_strip2/spr_weapon_brawler_strip2.yy",},"order":1,},
     {"id":{"name":"obj_gun","path":"objects/obj_gun/obj_gun.yy",},"order":1,},

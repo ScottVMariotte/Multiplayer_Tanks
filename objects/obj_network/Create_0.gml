@@ -33,3 +33,6 @@ function remove_instance(CLIENT_ID, OBJECT_ID){
 	ds_list_delete(map_list_clients[? CLIENT_ID], ds_list_find_index(map_list_clients[? CLIENT_ID], OBJECT_ID))
 }
 
+function get_instace(client_ID, object_ID){
+	return map_clients[? client_ID][? object_ID]
+}

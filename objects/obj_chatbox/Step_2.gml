@@ -9,7 +9,8 @@ for(var i = 0; i < MESSAGE_COUNT; i ++){
 	}
 }
 
-if(instance_exists(obj_camera)){
+if(instance_exists(obj_client)){
+	instance_destroy()
 	x = obj_camera.x + (obj_camera._width/2 * obj_camera._cam_scale) - (sprite_width*obj_camera._cam_scale)
 	y = obj_camera.y + (obj_camera._height/2 * obj_camera._cam_scale) - (sprite_height*obj_camera._cam_scale)
 }

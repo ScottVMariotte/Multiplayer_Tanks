@@ -1,10 +1,12 @@
 /// @description 
+event_inherited()
+
 network_set_config(network_config_connect_timeout, 4000)
 
 PORT = 7630
 TYPE = network_socket_tcp
 
-IP = get_string("Remote IP : ","scottjmariotte.ddns.net")
+IP = get_string("Remote IP : ","127.0.0.1")
 
 CLIENT = network_create_socket(TYPE)
 if(network_connect(CLIENT, IP, PORT) < 0){ 
@@ -21,23 +23,6 @@ map_list_clients = ds_map_create()
 
 room_goto(room_play)
 
-function add_client(CLIENT_ID){
-	ds_map_add(map_clients, CLIENT_ID, ds_map_create())
-	ds_map_add(map_list_clients, CLIENT_ID, ds_list_create())
-}
-
-
-function remove_client(CLIENT_ID){
-	var insts = map_clients[? CLIENT_ID]//Map of all instances with this client
-	var ids = map_list_clients[? CLIENT_ID]//Kets for all instances in the map
-	for(var i = 0; i < ds_list_size(ids); i ++){//Destroy all instances owned by client
-		instance_destroy(insts[? ids[| i]])
-	}
-	
-	ds_map_delete(map_clients, CLIENT_ID)
-	ds_map_delete(map_list_clients, CLIENT_ID)
-}
-
 function add_instance(inst){
 	var client_id = inst.CLIENT_ID
 	var object_id = inst.OBJECT_ID
@@ -52,20 +37,6 @@ function add_instance(inst){
 		buffer_write(client_buffer, B_OBJECT_ID, object_id)
 		network_send_packet(CLIENT, client_buffer, buffer_tell(client_buffer))
 	}
-}
-
-function remove_instance(CLIENT_ID, OBJECT_ID){
-	instance_destroy(map_clients[? CLIENT_ID][? OBJECT_ID])
-	ds_map_delete(map_clients[? CLIENT_ID], OBJECT_ID)
-	ds_list_delete(map_list_clients[? CLIENT_ID], ds_list_find_index(map_list_clients[? CLIENT_ID], OBJECT_ID))
-}
-
-function get_instace(client_ID, object_ID){
-	var client_map = map_clients[? client_ID]
-	if(client_map == undefined){
-		return undefined
-	}
-	return client_map[? object_ID]
 }
 
 #region //Network send

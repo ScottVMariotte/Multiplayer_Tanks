@@ -1,3 +1,5 @@
+event_inherited()
+
 PORT = 7630
 TYPE = network_socket_tcp
 MAX_PLAYERS = 10
@@ -14,20 +16,18 @@ server_buffer = buffer_create(1024, buffer_fixed, 1)
 
 //Connection managment
 num_connections = 0
-list_clientID = ds_list_create()
 map_clientID_socket = ds_map_create()
 map_socket_clientID = ds_map_create()
 
-map_clients = ds_map_create()
-map_list_clients = ds_map_create()
+list_clientID = ds_list_create()
 
 function add_connection(SOCKET, ID){
 	scr_msg("Client " + string(ID) + " Connected")
 	ds_list_add(list_clientID, ID)
 	ds_map_add(map_socket_clientID, SOCKET, ID)
 	ds_map_add(map_clientID_socket, ID, SOCKET)
-	ds_map_add(map_clients, ID, ds_map_create())
-	ds_map_add(map_list_clients, ID, ds_list_create())
+	add_client(ID)
+	
 	num_connections ++
 }
 
@@ -36,21 +36,12 @@ function delete_connection(SOCKET, ID){
 	ds_list_delete(list_clientID, ds_list_find_index(list_clientID, ID))
 	ds_map_delete(map_socket_clientID, SOCKET)
 	ds_map_delete(map_clientID_socket, ID)
-	
-	var insts = map_clients[? ID]//Map of all instances with this client
-	var ids = map_list_clients[? ID]//maps for all instances in the map
-	for(var i = 0; i < ds_list_size(ids); i ++){//Destroy all instances owned by client
-		instance_destroy(insts[? ids[| i]])
-	}
-	
-	ds_map_destroy(map_clients[? ID])
-	ds_list_destroy(map_list_clients[? ID])
+	 remove_client(ID)
+	 
 	num_connections --
 }
 
 //Object managment
-map_clients = ds_map_create()//Object IDs per client to instances
-map_list_clients = ds_map_create()
 
 function unique_ID(){
 	var ID = irandom(255)
@@ -61,20 +52,6 @@ function unique_ID(){
 }
 
 #region //instance managment
-
-function add_instance(inst){
-	var client_id = inst.CLIENT_ID
-	var object_id = inst.OBJECT_ID
-	
-	ds_map_add(map_clients[? client_id], object_id, inst)
-	ds_list_add(map_list_clients[? client_id], object_id)
-}
-
-function remove_instance(CLIENT_ID, OBJECT_ID){
-	instance_destroy(map_clients[? CLIENT_ID][? OBJECT_ID])
-	ds_map_delete(map_clients[? CLIENT_ID], OBJECT_ID)
-	ds_list_delete(map_list_clients[? CLIENT_ID], ds_list_find_index(map_list_clients[? CLIENT_ID], OBJECT_ID))
-}
 
 function client_dump(client, socket){
 	buff_clear(T_CLIENT_DUMP)
@@ -95,9 +72,7 @@ function client_dump(client, socket){
 	network_send_packet(socket, server_buffer, buffer_tell(server_buffer))
 }
 
-function get_instace(client_ID, object_ID){
-	return map_clients[? client_ID][? object_ID]
-}
+///////////////////
 
 #endregion 
 

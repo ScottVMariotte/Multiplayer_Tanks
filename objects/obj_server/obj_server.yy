@@ -4,7 +4,10 @@
   "visible": true,
   "spriteMaskId": null,
   "persistent": true,
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "obj_network",
+    "path": "objects/obj_network/obj_network.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
